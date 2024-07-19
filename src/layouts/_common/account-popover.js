@@ -19,6 +19,8 @@ import { useAuthContext } from 'src/auth/hooks';
 import { varHover } from 'src/components/animate';
 import { useSnackbar } from 'src/components/snackbar';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { store } from 'src/redux/store';
+import { logOut } from 'src/redux/slices/checkout';
 
 // ----------------------------------------------------------------------
 
@@ -52,9 +54,13 @@ export default function AccountPopover() {
 
   const handleLogout = async () => {
     try {
-      await logout();
-      popover.onClose();
-      router.replace('/');
+      // await logout();
+      // popover.onClose();
+      // router.replace('/');
+
+      store.dispatch(logOut({isLogged:false}))
+
+
     } catch (error) {
       console.error(error);
       enqueueSnackbar('Unable to logout!', { variant: 'error' });

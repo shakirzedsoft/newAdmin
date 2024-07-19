@@ -14,6 +14,15 @@ const initialState = {
   shipping: 0,
   billing: null,
   totalItems: 0,
+
+
+  //myauth
+  auth: {
+    UserCredentials: "",
+    isLogged: false,
+  }
+
+
 };
 
 const slice = createSlice({
@@ -141,6 +150,37 @@ const slice = createSlice({
       state.shipping = shipping;
       state.total = state.subTotal - state.discount + shipping;
     },
+
+
+    //login
+    login(state, action) {
+      const isLogged = action.payload.isLogged;
+      if (isLogged) {
+        state.auth.UserCredentials = action.payload.loginData;
+        state.auth.isLogged = true;
+      }
+      else {
+
+        state.auth.UserCredentials = action.payload.loginData;
+        state.auth.isLogged = false;
+      }
+
+    },
+
+    //logOut
+    logOut(state, action) {
+
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('role')
+
+
+      state.auth.isLogged = action.payload.isLogged,
+      state.auth.UserCredentials = ""
+
+    }
+
+
+
   },
 });
 
@@ -161,4 +201,7 @@ export const {
   applyDiscount,
   increaseQuantity,
   decreaseQuantity,
+
+  logOut,
+  login,
 } = slice.actions;

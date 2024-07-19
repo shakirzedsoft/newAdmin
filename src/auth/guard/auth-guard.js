@@ -5,6 +5,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hook';
 //
 import { useAuthContext } from '../hooks';
+import { useSelector } from 'react-redux';
 
 // ----------------------------------------------------------------------
 
@@ -18,30 +19,55 @@ const loginPaths = {
 // ----------------------------------------------------------------------
 
 export default function AuthGuard({ children }) {
+
+  const { isLogged } = useSelector((state) => state.checkout.auth);
+
   const router = useRouter();
 
   const { authenticated, method } = useAuthContext();
 
   const [checked, setChecked] = useState(false);
 
+  // const check = useCallback(() => {
+  //   if (!authenticated) {
+  //     const searchParams = new URLSearchParams({ returnTo: window.location.pathname }).toString();
+
+  //     const loginPath = loginPaths[method];
+
+  //     const href = `${loginPath}?${searchParams}`;
+
+  //     router.replace(href);
+  //   } else {
+  //     setChecked(true);
+  //   }
+  // }, [authenticated, method, router]);
+  //------------------------------------------------//
+
+
+
   const check = useCallback(() => {
-    if (!authenticated) {
-      const searchParams = new URLSearchParams({ returnTo: window.location.pathname }).toString();
+    if (!isLogged) { // true
 
-      const loginPath = loginPaths[method];
-
-      const href = `${loginPath}?${searchParams}`;
-
+      // const searchParams = new URLSearchParams({ returnTo: window.location.pathname }).toString();
+      // const loginPath = loginPaths[method];
+      // const href = `${loginPath}?${searchParams}`;
+      // router.replace(href);
+     
+      const href = '/auth/jwt/login';
       router.replace(href);
+
     } else {
       setChecked(true);
     }
-  }, [authenticated, method, router]);
+  }, [isLogged, router]);
+
 
   useEffect(() => {
     check();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLogged]);
+
+
 
   if (!checked) {
     return null;

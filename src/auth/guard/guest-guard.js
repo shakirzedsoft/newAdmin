@@ -6,18 +6,34 @@ import { useRouter } from 'src/routes/hook';
 //
 import { useAuthContext } from '../hooks';
 
+import { useSelector } from 'react-redux';
+
 // ----------------------------------------------------------------------
 
 export default function GuestGuard({ children }) {
+
+  const { isLogged } = useSelector((state) => state.checkout.auth);
+
+
   const router = useRouter();
 
-  const { authenticated } = useAuthContext();
+  // const { authenticated } = useAuthContext();
+
+  // const check = useCallback(() => {
+  //   if (authenticated) {
+  //     router.replace(paths.dashboard.root);
+  //   }
+  // }, [authenticated, router]);
+
+
+
 
   const check = useCallback(() => {
-    if (authenticated) {
+    if (isLogged) {
       router.replace(paths.dashboard.root);
     }
-  }, [authenticated, router]);
+  }, [isLogged, router]);
+
 
   useEffect(() => {
     check();

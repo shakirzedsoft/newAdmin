@@ -9,6 +9,7 @@ import { authRoutes } from './auth';
 import { authDemoRoutes } from './auth-demo';
 import { dashboardRoutes } from './dashboard';
 import { componentsRoutes } from './components';
+import { GuestGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
@@ -26,15 +27,16 @@ export default function Router() {
     {
       path: '/',
       element: (
-        <MainLayout>
-          <HomePage />
-        </MainLayout>
+          <MainLayout>
+            {/* <HomePage /> */}
+          </MainLayout>
       ),
     },
 
     // Auth routes
     ...authRoutes,
-    ...authDemoRoutes,
+
+    // ...authDemoRoutes,
 
     // Dashboard routes
     ...dashboardRoutes,
