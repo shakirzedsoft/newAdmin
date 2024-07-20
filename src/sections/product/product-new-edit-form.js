@@ -54,44 +54,65 @@ export default function ProductNewEditForm({ currentProduct }) {
   const [includeTaxes, setIncludeTaxes] = useState(false);
 
   const NewProductSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
+    // name: Yup.string().required('Name is required'),
+    roomno: Yup.number().moreThan(0, 'Room No should not be $0.00'),
+    subdescription: Yup.string().required('Subdescription is required'),
     images: Yup.array().min(1, 'Images is required'),
-    tags: Yup.array().min(2, 'Must have at least 2 tags'),
-    category: Yup.string().required('Category is required'),
-    price: Yup.number().moreThan(0, 'Price should not be $0.00'),
-    description: Yup.string().required('Description is required'),
-    // not required
-    taxes: Yup.number(),
-    newLabel: Yup.object().shape({
-      enabled: Yup.boolean(),
-      content: Yup.string(),
-    }),
-    saleLabel: Yup.object().shape({
-      enabled: Yup.boolean(),
-      content: Yup.string(),
-    }),
+    noofbed: Yup.number().moreThan(0, 'Price should not be $0.00'),
+    location: Yup.string().required('location is required'),
+    status: Yup.string().required('status is required'),
+    aedprice: Yup.number().moreThan(0, 'AED Price should not be $0.00'),
+    totalreturn: Yup.number().moreThan(0, '5 year total return should not be $0.00'),
+    investmentreturn: Yup.number().moreThan(0, 'Yearly investment return should not be $0.00'),
+    netyield: Yup.number().moreThan(0, 'Projected net yield should not be $0.00'),
+
+    // tags: Yup.array().min(2, 'Must have at least 2 tags'),
+    // category: Yup.string().required('Category is required'),
+    // price: Yup.number().moreThan(0, 'Price should not be $0.00'),
+    // description: Yup.string().required('Description is required'),
+    // // not required
+    // taxes: Yup.number(),
+    // newLabel: Yup.object().shape({
+    //   enabled: Yup.boolean(),
+    //   content: Yup.string(),
+    // }),
+    // saleLabel: Yup.object().shape({
+    //   enabled: Yup.boolean(),
+    //   content: Yup.string(),
+    // }),
+
   });
 
   const defaultValues = useMemo(
     () => ({
-      name: currentProduct?.name || '',
-      description: currentProduct?.description || '',
-      subDescription: currentProduct?.subDescription || '',
+      // name: currentProduct?.name || '',
+      roomno: currentProduct?.name || '',
+      subdescription: currentProduct?.subDescription || "",
+
+      // description: currentProduct?.description || '',
+      // subDescription: currentProduct?.subDescription || '',
       images: currentProduct?.images || [],
-      //
-      code: currentProduct?.code || '',
-      sku: currentProduct?.sku || '',
-      price: currentProduct?.price || 0,
-      quantity: currentProduct?.quantity || 0,
-      priceSale: currentProduct?.priceSale || 0,
-      tags: currentProduct?.tags || [],
-      taxes: currentProduct?.taxes || 0,
-      gender: currentProduct?.gender || '',
-      category: currentProduct?.category || '',
-      colors: currentProduct?.colors || [],
-      sizes: currentProduct?.sizes || [],
-      newLabel: currentProduct?.newLabel || { enabled: false, content: '' },
-      saleLabel: currentProduct?.saleLabel || { enabled: false, content: '' },
+      noofbed: "",
+      location: "",
+      status: "",
+      aedprice: "",
+      totalreturn: "",
+      investmentreturn: "",
+      netyield: "",
+      // code: currentProduct?.code || '',
+      // sku: currentProduct?.sku || '',
+      // price: currentProduct?.price || 0,
+      // quantity: currentProduct?.quantity || 0,
+      // priceSale: currentProduct?.priceSale || 0,
+      // tags: currentProduct?.tags || [],
+      // taxes: currentProduct?.taxes || 0,
+      // gender: currentProduct?.gender || '',
+      // category: currentProduct?.category || '',
+      // colors: currentProduct?.colors || [],
+      // sizes: currentProduct?.sizes || [],
+      // newLabel: currentProduct?.newLabel || { enabled: false, content: '' },
+      // saleLabel: currentProduct?.saleLabel || { enabled: false, content: '' },
+
     }),
     [currentProduct]
   );
@@ -126,12 +147,13 @@ export default function ProductNewEditForm({ currentProduct }) {
   }, [currentProduct?.taxes, includeTaxes, setValue]);
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
-      router.push(paths.dashboard.product.root);
-      console.info('DATA', data);
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      // reset();
+      // enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
+      // router.push(paths.dashboard.product.root);
+      // console.info('DATA', data);
     } catch (error) {
       console.error(error);
     }
@@ -186,14 +208,17 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <RHFTextField name="name" label="Product Name" />
+            {/* <RHFTextField name="name" label="Product Name" /> */}
 
-            <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
+            <RHFTextField name="roomno" label="Room No" type="number"/>
 
-            <Stack spacing={1.5}>
+
+            <RHFTextField name="subdescription" label="Sub Description" multiline rows={4} />
+
+            {/* <Stack spacing={1.5}>
               <Typography variant="subtitle2">Content</Typography>
               <RHFEditor simple name="description" />
-            </Stack>
+            </Stack> */}
 
             <Stack spacing={1.5}>
               <Typography variant="subtitle2">Images</Typography>
@@ -241,19 +266,24 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
-              <RHFTextField name="code" label="Product Code" />
+              {/* <RHFTextField name="code" label="Product Code" /> */}
 
-              <RHFTextField name="sku" label="Product SKU" />
+              <RHFTextField name="noofbed" label="No of Bed" />
 
-              <RHFTextField
+              {/* <RHFTextField name="sku" label="Product SKU" /> */}
+              <RHFTextField name="location" label="Location" />
+
+              <RHFTextField name="status" label="Status" />
+
+              {/* <RHFTextField
                 name="quantity"
                 label="Quantity"
                 placeholder="0"
                 type="number"
                 InputLabelProps={{ shrink: true }}
-              />
+              /> */}
 
-              <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
+              {/* <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
                 {PRODUCT_CATEGORY_GROUP_OPTIONS.map((category) => (
                   <optgroup key={category.group} label={category.group}>
                     {category.classify.map((classify) => (
@@ -263,19 +293,19 @@ export default function ProductNewEditForm({ currentProduct }) {
                     ))}
                   </optgroup>
                 ))}
-              </RHFSelect>
+              </RHFSelect> */}
 
-              <RHFMultiSelect
+              {/* <RHFMultiSelect
                 checkbox
                 name="colors"
                 label="Colors"
                 options={PRODUCT_COLOR_NAME_OPTIONS}
-              />
+              /> */}
 
-              <RHFMultiSelect checkbox name="sizes" label="Sizes" options={PRODUCT_SIZE_OPTIONS} />
+              {/* <RHFMultiSelect checkbox name="sizes" label="Sizes" options={PRODUCT_SIZE_OPTIONS} /> */}
             </Box>
 
-            <RHFAutocomplete
+            {/* <RHFAutocomplete
               name="tags"
               label="Tags"
               placeholder="+ Tags"
@@ -300,16 +330,16 @@ export default function ProductNewEditForm({ currentProduct }) {
                   />
                 ))
               }
-            />
+            /> */}
 
-            <Stack spacing={1}>
+            {/* <Stack spacing={1}>
               <Typography variant="subtitle2">Gender</Typography>
               <RHFMultiCheckbox row name="gender" spacing={2} options={PRODUCT_GENDER_OPTIONS} />
-            </Stack>
+            </Stack> */}
 
             <Divider sx={{ borderStyle: 'dashed' }} />
 
-            <Stack direction="row" alignItems="center" spacing={3}>
+            {/* <Stack direction="row" alignItems="center" spacing={3}>
               <RHFSwitch name="saleLabel.enabled" label={null} sx={{ m: 0 }} />
               <RHFTextField
                 name="saleLabel.content"
@@ -317,9 +347,9 @@ export default function ProductNewEditForm({ currentProduct }) {
                 fullWidth
                 disabled={!values.saleLabel.enabled}
               />
-            </Stack>
+            </Stack> */}
 
-            <Stack direction="row" alignItems="center" spacing={3}>
+            {/* <Stack direction="row" alignItems="center" spacing={3}>
               <RHFSwitch name="newLabel.enabled" label={null} sx={{ m: 0 }} />
               <RHFTextField
                 name="newLabel.content"
@@ -327,7 +357,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 fullWidth
                 disabled={!values.newLabel.enabled}
               />
-            </Stack>
+            </Stack> */}
           </Stack>
         </Card>
       </Grid>
@@ -352,7 +382,8 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Pricing" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <RHFTextField
+
+            {/* <RHFTextField
               name="price"
               label="Regular Price"
               placeholder="0.00"
@@ -367,11 +398,12 @@ export default function ProductNewEditForm({ currentProduct }) {
                   </InputAdornment>
                 ),
               }}
-            />
+            /> */}
+
 
             <RHFTextField
-              name="priceSale"
-              label="Sale Price"
+              name="aedprice"
+              label="AED Price"
               placeholder="0.00"
               type="number"
               InputLabelProps={{ shrink: true }}
@@ -386,12 +418,83 @@ export default function ProductNewEditForm({ currentProduct }) {
               }}
             />
 
-            <FormControlLabel
-              control={<Switch checked={includeTaxes} onChange={handleChangeIncludeTaxes} />}
-              label="Price includes taxes"
+            <RHFTextField
+              name="totalreturn"
+              label="5 year total return"
+              placeholder="0.00"
+              type="number"
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Box component="span" sx={{ color: 'text.disabled' }}>
+                      $
+                    </Box>
+                  </InputAdornment>
+                ),
+              }}
             />
 
-            {!includeTaxes && (
+
+            <RHFTextField
+              name="investmentreturn"
+              label="Yearly investment return"
+              placeholder="0.00"
+              type="number"
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Box component="span" sx={{ color: 'text.disabled' }}>
+                      $
+                    </Box>
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+
+            <RHFTextField
+              name="netyield"
+              label="Projected net yield"
+              placeholder="0.00"
+              type="number"
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Box component="span" sx={{ color: 'text.disabled' }}>
+                      $
+                    </Box>
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+
+            {/* <RHFTextField
+              name="priceSale"
+              label="Sale Price"
+              placeholder="0.00"
+              type="number"
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Box component="span" sx={{ color: 'text.disabled' }}>
+                      $
+                    </Box>
+                  </InputAdornment>
+                ),
+              }}
+            /> */}
+
+            {/* <FormControlLabel
+              control={<Switch checked={includeTaxes} onChange={handleChangeIncludeTaxes} />}
+              label="Price includes taxes"
+            /> */}
+
+            {/* {!includeTaxes && (
               <RHFTextField
                 name="taxes"
                 label="Tax (%)"
@@ -408,7 +511,9 @@ export default function ProductNewEditForm({ currentProduct }) {
                   ),
                 }}
               />
-            )}
+            )} */}
+
+
           </Stack>
         </Card>
       </Grid>

@@ -26,7 +26,7 @@ export default function ProductCreateView() {
             name: 'Product',
             href: paths.dashboard.product.root,
           },
-          { name: 'New product' },
+          { name: 'New Villa' },
         ]}
         sx={{
           mb: { xs: 3, md: 5 },
