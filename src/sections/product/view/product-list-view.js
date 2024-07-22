@@ -110,7 +110,7 @@ export default function ProductListView() {
 
   const canReset = !isEqual(defaultFilters, filters);
 
-  const notFound = (!dataFiltered.length && canReset) || productsEmpty;
+  const notFound = (!dataFiltered?.length && canReset) || productsEmpty;
 
   const handleFilters = useCallback(
     (name, value) => {
@@ -128,9 +128,9 @@ export default function ProductListView() {
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
 
-      table.onUpdatePageDeleteRow(dataInPage.length);
+      table.onUpdatePageDeleteRow(dataInPage?.length);
     },
-    [dataInPage.length, table, tableData]
+    [dataInPage?.length, table, tableData]
   );
 
   const handleDeleteRows = useCallback(() => {
@@ -138,11 +138,11 @@ export default function ProductListView() {
     setTableData(deleteRows);
 
     table.onUpdatePageDeleteRows({
-      totalRows: tableData.length,
-      totalRowsInPage: dataInPage.length,
-      totalRowsFiltered: dataFiltered.length,
+      totalRows: tableData?.length,
+      totalRowsInPage: dataInPage?.length,
+      totalRowsFiltered: dataFiltered?.length,
     });
-  }, [dataFiltered.length, dataInPage.length, table, tableData]);
+  }, [dataFiltered?.length, dataInPage?.length, table, tableData]);
 
   const handleEditRow = useCallback(
     (id) => {
@@ -214,7 +214,7 @@ export default function ProductListView() {
               //
               onResetFilters={handleResetFilters}
               //
-              results={dataFiltered.length}
+              results={dataFiltered?.length}
               sx={{ p: 2.5, pt: 0 }}
             />
           )}
@@ -222,8 +222,8 @@ export default function ProductListView() {
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
               dense={table.dense}
-              numSelected={table.selected.length}
-              rowCount={tableData.length}
+              numSelected={table.selected?.length}
+              rowCount={tableData?.length}
               onSelectAllRows={(checked) =>
                 table.onSelectAllRows(
                   checked,
@@ -245,8 +245,8 @@ export default function ProductListView() {
                   order={table.order}
                   orderBy={table.orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={tableData.length}
-                  numSelected={table.selected.length}
+                  rowCount={tableData?.length}
+                  numSelected={table.selected?.length}
                   onSort={table.onSort}
                   onSelectAllRows={(checked) =>
                     table.onSelectAllRows(
@@ -284,7 +284,7 @@ export default function ProductListView() {
 
                   <TableEmptyRows
                     height={denseHeight}
-                    emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
+                    emptyRows={emptyRows(table.page, table.rowsPerPage, tableData?.length)}
                   />
 
                   <TableNoData notFound={notFound} />
@@ -294,7 +294,7 @@ export default function ProductListView() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
+            count={dataFiltered?.length}
             page={table.page}
             rowsPerPage={table.rowsPerPage}
             onPageChange={table.onChangePage}
@@ -312,7 +312,7 @@ export default function ProductListView() {
         title="Delete"
         content={
           <>
-            Are you sure want to delete <strong> {table.selected.length} </strong> items?
+            Are you sure want to delete <strong> {table.selected?.length} </strong> items?
           </>
         }
         action={
@@ -353,11 +353,11 @@ function applyFilter({ inputData, comparator, filters }) {
     );
   }
 
-  if (stock.length) {
+  if (stock?.length) {
     inputData = inputData.filter((product) => stock.includes(product.inventoryType));
   }
 
-  if (publish.length) {
+  if (publish?.length) {
     inputData = inputData.filter((product) => publish.includes(product.publish));
   }
 
