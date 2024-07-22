@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 // slices
 import checkoutReducer from './slices/checkout';
-
+import villaslice from './slices/villaslice';
 // ----------------------------------------------------------------------
 
 const checkoutPersistConfig = {
@@ -14,4 +14,7 @@ const checkoutPersistConfig = {
 
 export const rootReducer = combineReducers({
   checkout: persistReducer(checkoutPersistConfig, checkoutReducer),
+
+  //villa project slice
+  villa:villaslice,
 });

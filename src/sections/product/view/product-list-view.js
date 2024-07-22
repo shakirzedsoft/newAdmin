@@ -40,6 +40,9 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
 import ProductTableFiltersResult from '../product-table-filters-result';
+import { getAllVillaApi } from 'src/api/ZedSoft/villa';
+import { useSelector } from 'react-redux';
+
 
 // ----------------------------------------------------------------------
 
@@ -66,6 +69,12 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function ProductListView() {
+
+
+
+  const {villaListdata} = useSelector((state)=>state.villa);
+  console.log(villaListdata)
+
   const router = useRouter();
 
   const table = useTable();
@@ -87,7 +96,7 @@ export default function ProductListView() {
   }, [products]);
 
   const dataFiltered = applyFilter({
-    inputData: tableData,
+    inputData: villaListdata,
     comparator: getComparator(table.order, table.orderBy),
     filters,
   });
@@ -152,6 +161,16 @@ export default function ProductListView() {
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
   }, []);
+
+
+
+
+  //useEffect
+  useEffect(() => {
+    getAllVillaApi()
+  }, [])
+
+
 
   return (
     <>
