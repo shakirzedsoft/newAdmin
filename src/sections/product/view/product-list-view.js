@@ -81,7 +81,7 @@ export default function ProductListView() {
   const confirm = useBoolean();
 
   useEffect(() => {
-    if (products.length) {
+    if (products?.length) {
       setTableData(products);
     }
   }, [products]);

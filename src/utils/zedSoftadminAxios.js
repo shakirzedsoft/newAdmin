@@ -3,9 +3,9 @@ import axios from 'axios';
 const BuidBaseURL = 'https://adminbackend-x8mm.onrender.com/';
 const LocalyBaseURL = "http://localhost:5000";
 
-// const axiosInstanceZedSoft = axios.create({ baseURL: LocalyBaseURL });
+const axiosInstanceZedSoft = axios.create({ baseURL: LocalyBaseURL });
 
-const axiosInstanceZedSoft = axios.create({ baseURL: BuidBaseURL });
+// const axiosInstanceZedSoft = axios.create({ baseURL: BuidBaseURL });
 
 axiosInstanceZedSoft.interceptors.request.use(
     config => {

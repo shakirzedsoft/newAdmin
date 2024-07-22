@@ -41,6 +41,7 @@ import FormProvider, {
   RHFAutocomplete,
   RHFMultiCheckbox,
 } from 'src/components/hook-form';
+import { CreateApi } from 'src/api/ZedSoft/villa';
 
 // ----------------------------------------------------------------------
 
@@ -56,7 +57,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   const NewProductSchema = Yup.object().shape({
     // name: Yup.string().required('Name is required'),
     roomno: Yup.number().moreThan(0, 'Room No should not be $0.00'),
-    subdescription: Yup.string().required('Subdescription is required'),
+    heading: Yup.string().required('heading is required'),
     images: Yup.array().min(1, 'Images is required'),
     noofbed: Yup.number().moreThan(0, 'Price should not be $0.00'),
     location: Yup.string().required('location is required'),
@@ -87,7 +88,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     () => ({
       // name: currentProduct?.name || '',
       roomno: currentProduct?.name || '',
-      subdescription: currentProduct?.subDescription || "",
+      heading: currentProduct?.subDescription || "",
 
       // description: currentProduct?.description || '',
       // subDescription: currentProduct?.subDescription || '',
@@ -146,14 +147,49 @@ export default function ProductNewEditForm({ currentProduct }) {
     }
   }, [currentProduct?.taxes, includeTaxes, setValue]);
 
+
+
+  //successfun
+  const successfun = () => {
+    reset();
+    enqueueSnackbar('Create success!');
+    router.push(paths.dashboard.product.root);
+  }
+
+
   const onSubmit = handleSubmit(async (data) => {
+
     console.log(data)
+
     try {
+
+
       // await new Promise((resolve) => setTimeout(resolve, 500));
       // reset();
       // enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
       // router.push(paths.dashboard.product.root);
       // console.info('DATA', data);
+
+      const formdata = new FormData();
+
+      if (data?.images) {
+        for (let i = 0; i < data.images.length; i++) {
+          formdata.append('images', data.images[i]);
+        }
+      }
+
+      formdata.append('aedprice', data?.aedprice)
+      formdata.append('investmentreturn', data?.investmentreturn)
+      formdata.append('location', data?.location)
+      formdata.append('netyield', data?.netyield)
+      formdata.append('noofbed', data?.noofbed)
+      formdata.append('roomno', data?.roomno)
+      formdata.append('status', data?.status)
+      formdata.append('heading', data?.heading)
+      formdata.append('totalreturn', data?.totalreturn)
+
+      CreateApi(formdata, successfun)
+
     } catch (error) {
       console.error(error);
     }
@@ -210,10 +246,10 @@ export default function ProductNewEditForm({ currentProduct }) {
           <Stack spacing={3} sx={{ p: 3 }}>
             {/* <RHFTextField name="name" label="Product Name" /> */}
 
-            <RHFTextField name="roomno" label="Room No" type="number"/>
+            <RHFTextField name="roomno" label="Room No" type="number" />
 
 
-            <RHFTextField name="subdescription" label="Sub Description" multiline rows={4} />
+            <RHFTextField name="heading" label="Heading" multiline rows={4} />
 
             {/* <Stack spacing={1.5}>
               <Typography variant="subtitle2">Content</Typography>
