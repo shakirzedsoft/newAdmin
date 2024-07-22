@@ -110,7 +110,10 @@ export default function ProductListView() {
 
   const canReset = !isEqual(defaultFilters, filters);
 
-  const notFound = (!dataFiltered?.length && canReset) || productsEmpty;
+  // const notFound = (!dataFiltered?.length && canReset) || productsEmpty;
+
+  const notFound = villaListdata?.length === 0;
+
 
   const handleFilters = useCallback(
     (name, value) => {
@@ -199,6 +202,7 @@ export default function ProductListView() {
         />
 
         <Card>
+
           <ProductTableToolbar
             filters={filters}
             onFilters={handleFilters}
@@ -282,10 +286,10 @@ export default function ProductListView() {
                     </>
                   )}
 
-                  <TableEmptyRows
+                  {/* <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(table.page, table.rowsPerPage, tableData?.length)}
-                  />
+                  /> */}
 
                   <TableNoData notFound={notFound} />
                 </TableBody>
