@@ -61,7 +61,7 @@ export function useNavData() {
         subheader: t('overview'),
         items: [
 
-          
+
           // { title: t('app'), path: paths.dashboard.root, icon: ICONS.dashboard },
           // { title: t('ecommerce'), path: paths.dashboard.general.ecommerce, icon: ICONS.ecommerce },
           // { title: t('analytics'), path: paths.dashboard.general.analytics, icon: ICONS.analytics },
@@ -82,6 +82,72 @@ export function useNavData() {
               { title: t('details'), path: paths.dashboard.product.demo.details },
               { title: t('create'), path: paths.dashboard.product.new },
               { title: t('edit'), path: paths.dashboard.product.demo.edit },
+            ],
+          },
+
+
+
+
+          {
+            title: t('Real Estate'),
+            path: "",
+            icon: ICONS.job,
+            children: [
+              { title: t('list'), path: "" },
+              { title: t('details'), path: "" },
+              { title: t('create'), path:"" },
+              { title: t('edit'), path: "" },
+            ],
+          },
+
+          {
+            title: t('Crude oil'),
+            path: "",
+            icon: ICONS.lock,
+            children: [
+              { title: t('list'), path: "" },
+              { title: t('details'), path: "" },
+              { title: t('create'), path:"" },
+              { title: t('edit'), path: "" },
+            ],
+          },
+
+
+          {
+            title: t('Gold'),
+            path: "",
+            icon: ICONS.invoice,
+            children: [
+              { title: t('list'), path: "" },
+              { title: t('details'), path: "" },
+              { title: t('create'), path:"" },
+              { title: t('edit'), path: "" },
+            ],
+          },
+
+
+          {
+            title: t('Silver'),
+            path: "",
+            icon: ICONS.order,
+            children: [
+              { title: t('list'), path: "" },
+              { title: t('details'), path: "" },
+              { title: t('create'), path:"" },
+              { title: t('edit'), path: "" },
+            ],
+          },
+
+
+          {
+            title: t('Tiles and Sanitarywere'),
+            path: "",
+            icon: ICONS.banking,
+            children: [
+              { title: t('list'), path: "" },
+              { title: t('details'), path: "" },
+              { title: t('create'), path:"" },
+              { title: t('edit'), path: "" },
             ],
           },
 

@@ -60,8 +60,12 @@ export default function ProductNewEditForm({ currentProduct }) {
     heading: Yup.string().required('heading is required'),
     images: Yup.array().min(1, 'Images is required'),
     noofbed: Yup.number().moreThan(0, 'Price should not be $0.00'),
+    sqft:Yup.number().moreThan(0, 'Sqft should not be $0.00'),
     location: Yup.string().required('location is required'),
     status: Yup.string().required('status is required'),
+    locationdesc:Yup.string().required('Location Desc is required'),
+    pptyoverviewdesc:Yup.string().required('Property Desc is required'),
+    amenities:Yup.string().required('Amenities is required'),
     aedprice: Yup.number().moreThan(0, 'AED Price should not be $0.00'),
     totalreturn: Yup.number().moreThan(0, '5 year total return should not be $0.00'),
     investmentreturn: Yup.number().moreThan(0, 'Yearly investment return should not be $0.00'),
@@ -94,8 +98,12 @@ export default function ProductNewEditForm({ currentProduct }) {
       // subDescription: currentProduct?.subDescription || '',
       images: currentProduct?.images || [],
       noofbed: "",
+      sqft:"",
       location: "",
       status: "",
+      locationdesc:"",
+      pptyoverviewdesc:"",
+      amenities:"",
       aedprice: "",
       totalreturn: "",
       investmentreturn: "",
@@ -187,6 +195,11 @@ export default function ProductNewEditForm({ currentProduct }) {
       formdata.append('status', data?.status)
       formdata.append('heading', data?.heading)
       formdata.append('totalreturn', data?.totalreturn)
+      formdata.append('sqft',data?.sqft)
+      formdata.append('locationdesc',data?.locationdesc)
+      formdata.append('pptyoverviewdesc',data?.pptyoverviewdesc)
+      formdata.append('amenities',data?.amenities)
+
 
       CreateApi(formdata, successfun)
 
@@ -304,12 +317,23 @@ export default function ProductNewEditForm({ currentProduct }) {
             >
               {/* <RHFTextField name="code" label="Product Code" /> */}
 
-              <RHFTextField name="noofbed" label="No of Bed" />
+              <RHFTextField name="noofbed" label="No of Bed" type="number"/>
+
+              <RHFTextField name="sqft" label="Sq.ft" type="number"/>
 
               {/* <RHFTextField name="sku" label="Product SKU" /> */}
               <RHFTextField name="location" label="Location" />
 
+           
+
               <RHFTextField name="status" label="Status" />
+
+              <RHFTextField name="locationdesc" label="Location Desc" multiline rows={4} />
+
+              <RHFTextField name="pptyoverviewdesc" label="Property Desc" multiline rows={4} />
+
+
+              <RHFTextField name="amenities" label="Amenities" />
 
               {/* <RHFTextField
                 name="quantity"
