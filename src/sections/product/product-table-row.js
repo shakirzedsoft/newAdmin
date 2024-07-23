@@ -42,7 +42,21 @@ export default function ProductTableRow({
     createdAt,
     available,
     inventoryType,
+
+    location,
+    status,
+    aedprice,
+    roomno,
+    heading
+
   } = row;
+
+  const imgbaseurl = 'http://localhost:5000/images/';
+
+  // const imgbaseurl = 'http://localhost:10000/images/';
+
+
+  // console.log(row)
 
   const confirm = useBoolean();
 
@@ -58,12 +72,35 @@ export default function ProductTableRow({
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
           <Avatar
             alt={name}
-            src={coverUrl}
+            // src={coverUrl}
+            src={imgbaseurl + row?.image[0]}
             variant="rounded"
             sx={{ width: 64, height: 64, mr: 2 }}
           />
 
+
           <ListItemText
+            disableTypography
+            primary={
+              <Link
+                noWrap
+                color="inherit"
+                variant="subtitle2"
+                onClick={onViewRow}
+                sx={{ cursor: 'pointer' }}
+              >
+                {heading}
+              </Link>
+            }
+            secondary={
+              <Box component="div" sx={{ typography: 'body2', color: 'text.disabled' }}>
+                {'DISCRIPTION...'}
+              </Box>
+            }
+          />
+
+
+          {/* <ListItemText
             disableTypography
             primary={
               <Link
@@ -81,10 +118,12 @@ export default function ProductTableRow({
                 {category}
               </Box>
             }
-          />
+          /> */}
+
+
         </TableCell>
 
-        <TableCell>
+        {/* <TableCell>
           <ListItemText
             primary={format(new Date(createdAt), 'dd MMM yyyy')}
             secondary={format(new Date(createdAt), 'p')}
@@ -95,9 +134,11 @@ export default function ProductTableRow({
               typography: 'caption',
             }}
           />
-        </TableCell>
+        </TableCell> */}
 
-        <TableCell sx={{ typography: 'caption', color: 'text.secondary' }}>
+        <TableCell>{roomno}</TableCell>
+
+        {/* <TableCell sx={{ typography: 'caption', color: 'text.secondary' }}>
           <LinearProgress
             value={(available * 100) / quantity}
             variant="determinate"
@@ -109,15 +150,27 @@ export default function ProductTableRow({
             sx={{ mb: 1, height: 6, maxWidth: 80 }}
           />
           {!!available && available} {inventoryType}
-        </TableCell>
+        </TableCell> */}
 
-        <TableCell>{fCurrency(price)}</TableCell>
+        <TableCell>{location}</TableCell>
 
-        <TableCell>
+
+        <TableCell>{fCurrency(aedprice)}</TableCell>
+
+        {/* <TableCell>{fCurrency(price)}</TableCell> */}
+
+        {/* <TableCell>
           <Label variant="soft" color={(publish === 'published' && 'info') || 'default'}>
             {publish}
           </Label>
+        </TableCell> */}
+
+        <TableCell>
+          <Label variant="soft" color={(status === 'available' && 'info') || 'default'}>
+            {status}
+          </Label>
         </TableCell>
+
 
         <TableCell align="right">
           <IconButton color={popover.open ? 'primary' : 'default'} onClick={popover.onOpen}>

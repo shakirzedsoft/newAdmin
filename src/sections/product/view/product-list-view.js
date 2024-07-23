@@ -48,10 +48,17 @@ import { useSelector } from 'react-redux';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Product' },
-  { id: 'createdAt', label: 'Create at', width: 160 },
-  { id: 'inventoryType', label: 'Stock', width: 160 },
+  // { id: 'createdAt', label: 'Create at', width: 160 },
+
+  // { id: 'inventoryType', label: 'Stock', width: 160 },
+
+  { id: 'roomno', label: 'RoomNo', width: 160 },
+  { id: 'Location', label: 'Location', width: 160 },
   { id: 'price', label: 'Price', width: 140 },
-  { id: 'publish', label: 'Publish', width: 110 },
+  // { id: 'publish', label: 'Publish', width: 110 },
+
+  { id: 'status', label: 'Status', width: 110 },
+
   { id: '', width: 88 },
 ];
 
@@ -72,7 +79,7 @@ export default function ProductListView() {
 
 
 
-  const {villaListdata} = useSelector((state)=>state.villa);
+  const { villaListdata } = useSelector((state) => state.villa);
   console.log(villaListdata)
 
   const router = useRouter();
