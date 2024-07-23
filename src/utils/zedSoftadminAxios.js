@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+//img baseurl
+export const imgbaseurl = 'https://adminbackend-x8mm.onrender.com/images/';
+// export const imgbaseurl = 'http://localhost:5000/images/';
+
+
+
 const BuidBaseURL = 'https://adminbackend-x8mm.onrender.com/';
 const LocalyBaseURL = "http://localhost:5000";
 

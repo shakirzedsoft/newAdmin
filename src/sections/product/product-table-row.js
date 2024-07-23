@@ -21,6 +21,7 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { imgbaseurl } from 'src/utils/zedSoftadminAxios';
 
 // ----------------------------------------------------------------------
 
@@ -52,10 +53,7 @@ export default function ProductTableRow({
   } = row;
 
   // const imgbaseurl = 'http://localhost:5000/images/';
-
-  // const imgbaseurl = 'http://localhost:10000/images/';
-
-  const imgbaseurl = 'https://adminbackend-x8mm.onrender.com/images/';
+  // const imgbaseurl = 'https://adminbackend-x8mm.onrender.com/images/';
 
 
   // console.log(row)
