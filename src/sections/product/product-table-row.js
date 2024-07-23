@@ -55,7 +55,7 @@ export default function ProductTableRow({
 
   // const imgbaseurl = 'http://localhost:10000/images/';
 
-  const imgbaseurl = 'https://adminbackend-x8mm.onrender.com/';
+  const imgbaseurl = 'https://adminbackend-x8mm.onrender.com/images/';
 
 
   // console.log(row)
