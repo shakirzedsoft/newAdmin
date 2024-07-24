@@ -41,11 +41,27 @@ import FormProvider, {
   RHFAutocomplete,
   RHFMultiCheckbox,
 } from 'src/components/hook-form';
-import { CreateApi } from 'src/api/ZedSoft/villa';
+import { useParams } from 'src/routes/hook';
+import { CreateApi, singleViewofVillaByID, UpdateVillaByIDApiCall } from 'src/api/ZedSoft/villa';
+import { useSelector } from 'react-redux';
+import { store } from 'src/redux/store';
+import { singleViewOfVillastate } from 'src/redux/slices/villaslice';
+import { imgbaseurl } from 'src/utils/zedSoftadminAxios';
+
 
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
+
+
+  const { singleViewofVilla } = useSelector((state) => state.villa);
+
+  console.log(singleViewofVilla)
+
+  const params = useParams();
+
+  const { id } = params;
+  console.log(id)
   const router = useRouter();
 
   const mdUp = useResponsive('up', 'md');
@@ -59,13 +75,13 @@ export default function ProductNewEditForm({ currentProduct }) {
     roomno: Yup.number().moreThan(0, 'Room No should not be $0.00'),
     heading: Yup.string().required('heading is required'),
     images: Yup.array().min(1, 'Images is required'),
-    noofbed: Yup.number().moreThan(0, 'Price should not be $0.00'),
-    sqft:Yup.number().moreThan(0, 'Sqft should not be $0.00'),
+    noofbed: Yup.number().moreThan(0, 'No of bed should not be 0'),
+    sqft: Yup.number().moreThan(0, 'Sqft should not be $0.00'),
     location: Yup.string().required('location is required'),
     status: Yup.string().required('status is required'),
-    locationdesc:Yup.string().required('Location Desc is required'),
-    pptyoverviewdesc:Yup.string().required('Property Desc is required'),
-    amenities:Yup.string().required('Amenities is required'),
+    locationdesc: Yup.string().required('Location Desc is required'),
+    pptyoverviewdesc: Yup.string().required('Property Desc is required'),
+    amenities: Yup.string().required('Amenities is required'),
     aedprice: Yup.number().moreThan(0, 'AED Price should not be $0.00'),
     totalreturn: Yup.number().moreThan(0, '5 year total return should not be $0.00'),
     investmentreturn: Yup.number().moreThan(0, 'Yearly investment return should not be $0.00'),
@@ -91,19 +107,18 @@ export default function ProductNewEditForm({ currentProduct }) {
   const defaultValues = useMemo(
     () => ({
       // name: currentProduct?.name || '',
-      roomno: currentProduct?.name || '',
-      heading: currentProduct?.subDescription || "",
-
+      roomno: '',
+      heading: "",
       // description: currentProduct?.description || '',
       // subDescription: currentProduct?.subDescription || '',
-      images: currentProduct?.images || [],
+      images: [],
       noofbed: "",
-      sqft:"",
+      sqft: "",
       location: "",
       status: "",
-      locationdesc:"",
-      pptyoverviewdesc:"",
-      amenities:"",
+      locationdesc: "",
+      pptyoverviewdesc: "",
+      amenities: "",
       aedprice: "",
       totalreturn: "",
       investmentreturn: "",
@@ -160,7 +175,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   //successfun
   const successfun = () => {
     reset();
-    enqueueSnackbar('Create success!');
+    enqueueSnackbar( !id ? 'Create success!' : 'Update success!');
     router.push(paths.dashboard.product.root);
   }
 
@@ -195,13 +210,19 @@ export default function ProductNewEditForm({ currentProduct }) {
       formdata.append('status', data?.status)
       formdata.append('heading', data?.heading)
       formdata.append('totalreturn', data?.totalreturn)
-      formdata.append('sqft',data?.sqft)
-      formdata.append('locationdesc',data?.locationdesc)
-      formdata.append('pptyoverviewdesc',data?.pptyoverviewdesc)
-      formdata.append('amenities',data?.amenities)
+      formdata.append('sqft', data?.sqft)
+      formdata.append('locationdesc', data?.locationdesc)
+      formdata.append('pptyoverviewdesc', data?.pptyoverviewdesc)
+      formdata.append('amenities', data?.amenities)
 
+      if (!id) {
+        CreateApi(formdata, successfun)
+      } else if (id) {
+        // window.alert("UPDATE>>>")
+        formdata.append('id',id)
+        UpdateVillaByIDApiCall(formdata,successfun)
+      }
 
-      CreateApi(formdata, successfun)
 
     } catch (error) {
       console.error(error);
@@ -238,6 +259,52 @@ export default function ProductNewEditForm({ currentProduct }) {
   const handleChangeIncludeTaxes = useCallback((event) => {
     setIncludeTaxes(event.target.checked);
   }, []);
+
+
+
+
+  //useEffect
+  useEffect(() => {
+    if (id !== undefined) {
+      singleViewofVillaByID(id)
+    }
+    return () => { // componentwill unmount
+      // window.alert("III")
+      store.dispatch(singleViewOfVillastate({ data: [] }))
+    }
+  }, [id])
+
+
+
+
+  //useEffect
+  useEffect(() => {
+
+    setValue('roomno', singleViewofVilla?.roomno ? singleViewofVilla?.roomno : "")
+    setValue('heading', singleViewofVilla?.heading ? singleViewofVilla?.heading : "")
+    //image
+    setValue('images', singleViewofVilla?.image ? singleViewofVilla?.image.map(item => imgbaseurl + item) : [])
+
+    setValue('noofbed', singleViewofVilla?.noofbed ? singleViewofVilla?.noofbed : "")
+    setValue('sqft', singleViewofVilla?.sqft ? singleViewofVilla?.sqft : "")
+    setValue('location', singleViewofVilla?.location ? singleViewofVilla?.location : "")
+    setValue('status', singleViewofVilla?.status ? singleViewofVilla?.status : "")
+    setValue('locationdesc', singleViewofVilla?.locationdesc ? singleViewofVilla?.locationdesc : "")
+    setValue('pptyoverviewdesc', singleViewofVilla?.pptyoverviewdesc ? singleViewofVilla?.pptyoverviewdesc : "")
+    setValue('amenities', singleViewofVilla?.amenities ? singleViewofVilla?.amenities : "")
+    setValue('aedprice', singleViewofVilla?.aedprice ? singleViewofVilla?.aedprice : "")
+    setValue('totalreturn', singleViewofVilla?.fiveyrtotalreturn ? singleViewofVilla?.fiveyrtotalreturn : "")
+    setValue('investmentreturn', singleViewofVilla?.yearlyinvsmtreturn ? singleViewofVilla?.yearlyinvsmtreturn : "")
+    setValue('netyield', singleViewofVilla?.projectednetyeld ? singleViewofVilla?.projectednetyeld : "");
+
+  }, [setValue, singleViewofVilla])
+
+
+
+
+
+
+
 
   const renderDetails = (
     <>
@@ -317,14 +384,13 @@ export default function ProductNewEditForm({ currentProduct }) {
             >
               {/* <RHFTextField name="code" label="Product Code" /> */}
 
-              <RHFTextField name="noofbed" label="No of Bed" type="number"/>
+              <RHFTextField name="noofbed" label="No of Bed" type="number" />
 
-              <RHFTextField name="sqft" label="Sq.ft" type="number"/>
+              <RHFTextField name="sqft" label="Sq.ft" type="number" />
 
               {/* <RHFTextField name="sku" label="Product SKU" /> */}
               <RHFTextField name="location" label="Location" />
 
-           
 
               <RHFTextField name="status" label="Status" />
 
@@ -591,7 +657,10 @@ export default function ProductNewEditForm({ currentProduct }) {
         />
 
         <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
-          {!currentProduct ? 'Create Product' : 'Save Changes'}
+          {/* {!currentProduct ? 'Create Product' : 'Save Changes'} */}
+
+          {!id ? 'Create Villa' : 'Save Changes'}
+
         </LoadingButton>
       </Grid>
     </>

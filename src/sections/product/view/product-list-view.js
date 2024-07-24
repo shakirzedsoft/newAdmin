@@ -285,9 +285,9 @@ export default function ProductListView() {
                             row={row}
                             selected={table.selected.includes(row.id)}
                             onSelectRow={() => table.onSelectRow(row.id)}
-                            onDeleteRow={() => handleDeleteRow(row.id)}
-                            onEditRow={() => handleEditRow(row.id)}
-                            onViewRow={() => handleViewRow(row.id)}
+                            onDeleteRow={() => handleDeleteRow(row._id)}
+                            onEditRow={() => handleEditRow(row._id)}
+                            onViewRow={() => handleViewRow(row._id)}
                           />
                         ))}
                     </>

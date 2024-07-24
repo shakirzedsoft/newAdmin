@@ -1,17 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    villaListdata : []
+    villaListdata: [],
+    singleViewofVilla: [],
 }
 
 const slice = createSlice({
-    name:"villa",
-    initialState:initialState,
-    reducers:{
-        villaList(state,action){
+    name: "villa",
+    initialState: initialState,
+    reducers: {
+        villaList(state, action) {
             //villaListdata
             state.villaListdata = action.payload.data;
 
+        },
+        singleViewOfVillastate(state, action) {
+            //singleViewofVilla
+            state.singleViewofVilla = action.payload.data;
         }
 
     }
@@ -19,4 +24,4 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const {villaList} = slice.actions;
+export const { villaList,singleViewOfVillastate } = slice.actions;
