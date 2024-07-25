@@ -75,6 +75,11 @@ export default function ProductNewEditForm({ currentProduct }) {
     roomno: Yup.number().moreThan(0, 'Room No should not be $0.00'),
     heading: Yup.string().required('heading is required'),
     images: Yup.array().min(1, 'Images is required'),
+
+
+    document: Yup.array().min(1, 'Document is required'),
+
+
     noofbed: Yup.number().moreThan(0, 'No of bed should not be 0'),
     sqft: Yup.number().moreThan(0, 'Sqft should not be $0.00'),
     location: Yup.string().required('location is required'),
@@ -112,6 +117,9 @@ export default function ProductNewEditForm({ currentProduct }) {
       // description: currentProduct?.description || '',
       // subDescription: currentProduct?.subDescription || '',
       images: [],
+
+      document: [],
+
       noofbed: "",
       sqft: "",
       location: "",
@@ -175,7 +183,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   //successfun
   const successfun = () => {
     reset();
-    enqueueSnackbar( !id ? 'Create success!' : 'Update success!');
+    enqueueSnackbar(!id ? 'Create success!' : 'Update success!');
     router.push(paths.dashboard.product.root);
   }
 
@@ -195,11 +203,21 @@ export default function ProductNewEditForm({ currentProduct }) {
 
       const formdata = new FormData();
 
+      //imagges
       if (data?.images) {
         for (let i = 0; i < data.images.length; i++) {
           formdata.append('images', data.images[i]);
         }
       }
+
+      //document
+      if (data?.document) {
+        for (let i = 0; i < data.document.length; i++) {
+          formdata.append('images', data.document[i]);
+        }
+      }
+
+
 
       formdata.append('aedprice', data?.aedprice)
       formdata.append('investmentreturn', data?.investmentreturn)
@@ -216,11 +234,13 @@ export default function ProductNewEditForm({ currentProduct }) {
       formdata.append('amenities', data?.amenities)
 
       if (!id) {
+
         CreateApi(formdata, successfun)
+
       } else if (id) {
         // window.alert("UPDATE>>>")
-        formdata.append('id',id)
-        UpdateVillaByIDApiCall(formdata,successfun)
+        formdata.append('id', id)
+        UpdateVillaByIDApiCall(formdata, successfun)
       }
 
 
@@ -232,6 +252,8 @@ export default function ProductNewEditForm({ currentProduct }) {
   const handleDrop = useCallback(
     (acceptedFiles) => {
       const files = values.images || [];
+
+      console.log("FIles>>>>>>>>>>>>>>>>>", files)
 
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
@@ -263,6 +285,43 @@ export default function ProductNewEditForm({ currentProduct }) {
 
 
 
+
+
+  //document pdf upload
+  const DocumenthandleDrop = useCallback(
+    (acceptedFiles) => {
+      const files = values.document || [];
+      // console.log("FIles>>>>>>>>>>>>>>>>>", files)
+
+      const newFiles = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+
+      setValue('document', [...files, ...newFiles], { shouldValidate: true });
+    },
+    [setValue, values.document]
+  );
+
+
+  const documenthandleRemoveFile = useCallback(
+    (inputFile) => {
+      const filtered = values.document && values.document?.filter((file) => file !== inputFile);
+      setValue('document', filtered);
+    },
+    [setValue, values.document]
+  );
+
+
+  const DocumenthandleRemoveAllFiles = useCallback(() => {
+    setValue('document', []);
+  }, [setValue]);
+
+
+
+
+
   //useEffect
   useEffect(() => {
     if (id !== undefined) {
@@ -284,6 +343,9 @@ export default function ProductNewEditForm({ currentProduct }) {
     setValue('heading', singleViewofVilla?.heading ? singleViewofVilla?.heading : "")
     //image
     setValue('images', singleViewofVilla?.image ? singleViewofVilla?.image.map(item => imgbaseurl + item) : [])
+
+    //document
+    setValue('document',singleViewofVilla?.document ? singleViewofVilla?.document.map(item=>imgbaseurl + item): [])
 
     setValue('noofbed', singleViewofVilla?.noofbed ? singleViewofVilla?.noofbed : "")
     setValue('sqft', singleViewofVilla?.sqft ? singleViewofVilla?.sqft : "")
@@ -349,6 +411,29 @@ export default function ProductNewEditForm({ currentProduct }) {
                 onUpload={() => console.info('ON UPLOAD')}
               />
             </Stack>
+
+
+
+
+
+            <Stack spacing={1.5}>
+              <Typography variant="subtitle2">Document</Typography>
+              <RHFUpload
+
+                file={'document'}
+
+                multiple
+                thumbnail
+                name="document"
+                maxSize={3145728}
+                onDrop={DocumenthandleDrop}
+                onRemove={documenthandleRemoveFile}
+                onRemoveAll={DocumenthandleRemoveAllFiles}
+                onUpload={() => console.info('ON UPLOAD')}
+              />
+            </Stack>
+
+
           </Stack>
         </Card>
       </Grid>
