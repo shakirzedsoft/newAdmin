@@ -94,3 +94,26 @@ export const UpdateVillaByIDApiCall = async (data, successfun) => {
 
 
 }
+
+
+// DeleteApiCall 
+export const DeleteVillaAPiCall = async (id,modifyFun) => {
+    try {
+        const res = await axios.delete('/villa/delete', {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: {
+                id: id
+            }
+        })
+    
+        if(res.status === 200){
+            modifyFun()
+        }
+
+
+    } catch (err) {
+
+    }
+}

@@ -40,7 +40,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
 import ProductTableFiltersResult from '../product-table-filters-result';
-import { getAllVillaApi } from 'src/api/ZedSoft/villa';
+import { DeleteVillaAPiCall, getAllVillaApi } from 'src/api/ZedSoft/villa';
 import { useSelector } from 'react-redux';
 
 
@@ -90,6 +90,8 @@ export default function ProductListView() {
 
   const [tableData, setTableData] = useState([]);
 
+  const [modify, setModify] = useState(false);
+
   const [filters, setFilters] = useState(defaultFilters);
 
   const { products, productsLoading, productsEmpty } = useGetProducts();
@@ -133,15 +135,31 @@ export default function ProductListView() {
     [table]
   );
 
-  const handleDeleteRow = useCallback(
-    (id) => {
-      const deleteRow = tableData.filter((row) => row.id !== id);
-      setTableData(deleteRow);
+  // const handleDeleteRow = useCallback(
+  //   (id) => {
+  //     const deleteRow = tableData.filter((row) => row.id !== id);
+  //     setTableData(deleteRow);
 
-      table.onUpdatePageDeleteRow(dataInPage?.length);
-    },
-    [dataInPage?.length, table, tableData]
-  );
+  //     table.onUpdatePageDeleteRow(dataInPage?.length);
+  //   },
+  //   [dataInPage?.length, table, tableData]
+  // );
+
+
+  const modifyFun = () => {
+    setModify(!modify)
+  }
+
+
+
+  //handleDeleteRow
+  const handleDeleteRow = (id) => {
+    DeleteVillaAPiCall(id, modifyFun)
+  }
+
+
+
+
 
   const handleDeleteRows = useCallback(() => {
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
@@ -178,7 +196,7 @@ export default function ProductListView() {
   //useEffect
   useEffect(() => {
     getAllVillaApi()
-  }, [])
+  }, [modify])
 
 
 
