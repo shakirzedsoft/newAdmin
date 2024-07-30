@@ -35,6 +35,15 @@ export default function TourDetailsContent({ tour }) {
     ratingNumber,
   } = tour;
 
+  const dummydata = {
+
+    name:"shakir",
+    contactNo:"9876543210",
+    email:"zedsoft@gmail.com"
+
+  }
+
+
   const slides = images.map((slide) => ({
     src: slide,
   }));
@@ -151,6 +160,60 @@ export default function TourDetailsContent({ tour }) {
     </>
   );
 
+  // const renderOverview = (
+  //   <Box
+  //     gap={3}
+  //     display="grid"
+  //     gridTemplateColumns={{
+  //       xs: 'repeat(1, 1fr)',
+  //       md: 'repeat(2, 1fr)',
+  //     }}
+  //   >
+  //     {[
+  //       {
+  //         label: 'Available',
+  //         value: `${fDate(available.startDate)} - ${fDate(available.endDate)}`,
+  //         icon: <Iconify icon="solar:calendar-date-bold" />,
+  //       },
+  //       {
+  //         label: 'Contact name',
+  //         value: tourGuides.map((tourGuide) => tourGuide.phoneNumber).join(', '),
+  //         icon: <Iconify icon="solar:user-rounded-bold" />,
+  //       },
+  //       {
+  //         label: 'Durations',
+  //         value: durations,
+  //         icon: <Iconify icon="solar:clock-circle-bold" />,
+  //       },
+  //       {
+  //         label: 'Contact phone',
+  //         value: tourGuides.map((tourGuide) => tourGuide.name).join(', '),
+  //         icon: <Iconify icon="solar:phone-bold" />,
+  //       },
+  //     ].map((item) => (
+  //       <Stack key={item.label} spacing={1.5} direction="row">
+  //         {item.icon}
+  //         <ListItemText
+  //           primary={item.label}
+  //           secondary={item.value}
+  //           primaryTypographyProps={{
+  //             typography: 'body2',
+  //             color: 'text.secondary',
+  //             mb: 0.5,
+  //           }}
+  //           secondaryTypographyProps={{
+  //             typography: 'subtitle2',
+  //             color: 'text.primary',
+  //             component: 'span',
+  //           }}
+  //         />
+  //       </Stack>
+  //     ))}
+  //   </Box>
+  // );
+
+
+
   const renderOverview = (
     <Box
       gap={3}
@@ -167,18 +230,18 @@ export default function TourDetailsContent({ tour }) {
           icon: <Iconify icon="solar:calendar-date-bold" />,
         },
         {
-          label: 'Contact name',
-          value: tourGuides.map((tourGuide) => tourGuide.phoneNumber).join(', '),
+          label: 'Name',
+          value:dummydata?.name,
           icon: <Iconify icon="solar:user-rounded-bold" />,
         },
         {
-          label: 'Durations',
-          value: durations,
+          label: 'Email',
+          value: dummydata.email,
           icon: <Iconify icon="solar:clock-circle-bold" />,
         },
         {
           label: 'Contact phone',
-          value: tourGuides.map((tourGuide) => tourGuide.name).join(', '),
+          value: dummydata.contactNo,
           icon: <Iconify icon="solar:phone-bold" />,
         },
       ].map((item) => (
@@ -202,6 +265,8 @@ export default function TourDetailsContent({ tour }) {
       ))}
     </Box>
   );
+
+
 
   const renderContent = (
     <>
@@ -252,6 +317,7 @@ export default function TourDetailsContent({ tour }) {
       {renderGallery}
 
       <Stack sx={{ maxWidth: 720, mx: 'auto' }}>
+
         {renderHead}
 
         <Divider sx={{ borderStyle: 'dashed', my: 5 }} />
@@ -260,7 +326,8 @@ export default function TourDetailsContent({ tour }) {
 
         <Divider sx={{ borderStyle: 'dashed', my: 5 }} />
 
-        {renderContent}
+        {/* {renderContent} */}
+        
       </Stack>
     </>
   );
