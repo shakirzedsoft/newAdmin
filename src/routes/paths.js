@@ -180,3 +180,10 @@ export const paths = {
     },
   },
 };
+
+
+//zedsoft
+export const zedsoftPath = {
+  root_realEstate: `${ROOTS.DASHBOARD}/realEstate`,
+  new_realEstate: `${ROOTS.DASHBOARD}/realEstate/new`,
+}

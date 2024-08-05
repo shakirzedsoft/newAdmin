@@ -37,9 +37,9 @@ export default function TourDetailsContent({ tour }) {
 
   const dummydata = {
 
-    name:"shakir",
-    contactNo:"9876543210",
-    email:"zedsoft@gmail.com"
+    name: "shakir",
+    contactNo: "9876543210",
+    email: "zedsoft@gmail.com"
 
   }
 
@@ -231,7 +231,7 @@ export default function TourDetailsContent({ tour }) {
         },
         {
           label: 'Name',
-          value:dummydata?.name,
+          value: dummydata?.name,
           icon: <Iconify icon="solar:user-rounded-bold" />,
         },
         {
@@ -318,7 +318,7 @@ export default function TourDetailsContent({ tour }) {
 
       <Stack sx={{ maxWidth: 720, mx: 'auto' }}>
 
-        {renderHead}
+        {/* {renderHead} */}
 
         <Divider sx={{ borderStyle: 'dashed', my: 5 }} />
 
@@ -327,7 +327,7 @@ export default function TourDetailsContent({ tour }) {
         <Divider sx={{ borderStyle: 'dashed', my: 5 }} />
 
         {/* {renderContent} */}
-        
+
       </Stack>
     </>
   );

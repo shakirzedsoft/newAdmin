@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 // routes
-import { paths } from 'src/routes/paths';
+import { paths, zedsoftPath } from 'src/routes/paths';
 // locales
 import { useLocales } from 'src/locales';
 // components
@@ -90,12 +90,12 @@ export function useNavData() {
 
           {
             title: t('Real Estate'),
-            path: "",
+            path: zedsoftPath.root_realEstate,
             icon: ICONS.job,
             children: [
-              { title: t('list'), path: "" },
+              { title: t('list'), path:  zedsoftPath.root_realEstate },
               { title: t('details'), path: "" },
-              { title: t('create'), path: "" },
+              { title: t('create'), path: zedsoftPath.new_realEstate },
               { title: t('edit'), path: "" },
               { title: t('users'), path: "" },
             ],

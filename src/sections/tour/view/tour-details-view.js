@@ -67,14 +67,18 @@ export default function TourDetailsView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
-      <TourDetailsToolbar
+
+
+      {/* <TourDetailsToolbar
         backLink={paths.dashboard.tour.root}
         editLink={paths.dashboard.tour.edit(`${currentTour?.id}`)}
         liveLink="#"
         publish={publish || ''}
         onChangePublish={handleChangePublish}
         publishOptions={TOUR_PUBLISH_OPTIONS}
-      />
+      /> */}
+
+
       {renderTabs}
 
       {currentTab === 'content' && <TourDetailsContent tour={currentTour} />}

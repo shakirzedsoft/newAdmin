@@ -20,6 +20,7 @@ const OverviewFilePage = lazy(() => import('src/pages/dashboard/file'));
 
 //zedSoft
 //-------------------//
+const RealEstateCreatePage = lazy(()=>import('src/pages/dashboard/zedsoft/realEstate/new'))
 
 
 
@@ -70,6 +71,9 @@ const KanbanPage = lazy(() => import('src/pages/dashboard/kanban'));
 const PermissionDeniedPage = lazy(() => import('src/pages/dashboard/permission'));
 // BLANK PAGE
 const BlankPage = lazy(() => import('src/pages/dashboard/blank'));
+
+
+
 
 // ----------------------------------------------------------------------
 
@@ -172,6 +176,20 @@ export const dashboardRoutes = [
       { path: 'kanban', element: <KanbanPage /> },
       { path: 'permission', element: <PermissionDeniedPage /> },
       { path: 'blank', element: <BlankPage /> },
+
+
+      // realEstate
+      {
+        path: 'realEstate',
+        children: [
+          { element: "REALESTATE LIST", index: true },
+          { path: 'list', element: "REALESTATE LIST" },
+          { path: ':id', element: "" },
+          { path: 'new', element: <RealEstateCreatePage/> },
+          { path: ':id/edit', element: "" },
+        ],
+      },
+
     ],
   },
 ];
