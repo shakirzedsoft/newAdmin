@@ -13,6 +13,7 @@ const LocalyBaseURL = "http://localhost:5000";
 
 const axiosInstanceZedSoft = axios.create({ baseURL: BuidBaseURL });
 
+
 axiosInstanceZedSoft.interceptors.request.use(
     config => {
         const token = localStorage.getItem('access_token');
