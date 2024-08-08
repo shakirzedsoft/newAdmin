@@ -94,29 +94,30 @@ export function useNavData() {
             icon: ICONS.job,
             children: [
               { title: t('list'), path:  zedsoftPath.root_realEstate },
-              { title: t('details'), path: "" },
+              // { title: t('details'), path: "" },
               { title: t('create'), path: zedsoftPath.new_realEstate },
-              { title: t('edit'), path: "" },
-              { title: t('users'), path: "" },
-            ],
-          },
-
-          {
-            title: t('Crude oil'),
-            path: "",
-            icon: ICONS.lock,
-            children: [
-              { title: t('list'), path: "" },
-              { title: t('details'), path: "" },
-              { title: t('create'), path: "" },
-              { title: t('edit'), path: "" },
-              { title: t('users'), path: "" },
+              // { title: t('edit'), path: "" },
+              // { title: t('users'), path: "" },
             ],
           },
 
 
           {
             title: t('Gold'),
+            path: zedsoftPath.root_gold,
+            icon: ICONS.lock,
+            children: [
+              { title: t('list'), path: zedsoftPath.root_gold },
+              // { title: t('details'), path: "" },
+              { title: t('create'), path: zedsoftPath.new_gold },
+              // { title: t('edit'), path: "" },
+              // { title: t('users'), path: "" },
+            ],
+          },
+
+
+          {
+            title: t('Crude oil'),
             path: "",
             icon: ICONS.invoice,
             children: [
@@ -145,17 +146,16 @@ export function useNavData() {
 
           {
             title: t('Tiles and Sanitarywere'),
-            path: "",
+            path: zedsoftPath.root_Tiles_Sanitary,
             icon: ICONS.banking,
             children: [
-              { title: t('list'), path: "" },
-              { title: t('details'), path: "" },
-              { title: t('create'), path: "" },
-              { title: t('edit'), path: "" },
-              { title: t('users'), path: "" },
+              { title: t('list'), path: zedsoftPath.root_Tiles_Sanitary },
+              // { title: t('details'), path: "" },
+              { title: t('create'), path: zedsoftPath.new_Tiles_Sanitary },
+              // { title: t('edit'), path: "" },
+              // { title: t('users'), path: "" },
             ],
           },
-
         ],
       },
 

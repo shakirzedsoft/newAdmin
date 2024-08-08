@@ -22,6 +22,8 @@ const OverviewFilePage = lazy(() => import('src/pages/dashboard/file'));
 //zedSoft
 //-------------------//
 const RealEstateCreatePage = lazy(()=>import('src/pages/dashboard/zedsoft/realEstate/new'))
+const GoldCreatePage = lazy(()=>import('src/pages/dashboard/zedsoft/gold/new'));
+const Tiles_Sanitary = lazy(()=>import('src/pages/dashboard/zedsoft/tilesandsanitary/new'))
 
 
 
@@ -190,6 +192,36 @@ export const dashboardRoutes = [
           { path: ':id/edit', element: "" },
         ],
       },
+
+
+      //gold
+      {
+        path: 'gold',
+        children: [
+          { element: "GOLD LIST", index: true },
+          { path: 'list', element: "GOLD LIST" },
+          { path: ':id', element: "" },
+          { path: 'new', element: <GoldCreatePage/> },
+          { path: ':id/edit', element: "" },
+        ],
+      },
+
+
+      //tiles & sanitary
+      {
+        path: 'Tiles_Sanitary',
+        children: [
+          { element: "Tiles_Sanitary LIST", index: true },
+          { path: 'list', element: "Tiles_Sanitary LIST" },
+          { path: ':id', element: "" },
+          { path: 'new', element: <Tiles_Sanitary/> },
+          { path: ':id/edit', element: "" },
+        ],
+      },
+
+
+
+
 
     ],
   },
