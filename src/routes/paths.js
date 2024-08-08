@@ -186,4 +186,9 @@ export const paths = {
 export const zedsoftPath = {
   root_realEstate: `${ROOTS.DASHBOARD}/realEstate`,
   new_realEstate: `${ROOTS.DASHBOARD}/realEstate/new`,
+  root_gold:`${ROOTS.DASHBOARD}/gold`,
+  new_gold:`${ROOTS.DASHBOARD}/gold/new`,
+  root_Tiles_Sanitary : `${ROOTS.DASHBOARD}/Tiles_Sanitary`,
+  new_Tiles_Sanitary:`${ROOTS.DASHBOARD}/Tiles_Sanitary/new`,
+  
 }
